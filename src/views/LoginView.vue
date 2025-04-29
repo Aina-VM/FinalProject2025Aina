@@ -20,6 +20,36 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+const _handleLogIn = async () => {
+    if (!email.value || !password.value) {
+      errorMessage.value = 'Please enter both email and password.';
+      return;
+    }
+    try {
+    const { data, error } = await supabase.auth.signUp({
+      email: email.value,
+      password: password.value,
+    });
+
+    if (error) {
+      errorMessage.value = error.message; // Set errorMessage for UI
+      console.error('Sign-up error:', error.message);
+    } else if (data && data.user) {
+      // Handle successful sign-up
+      userStore.setUser(data.user); // Save user data in Pinia store
+      successMessage.value = 'Sign-up successful! Please check your email to confirm.';
+      console.log('User signed up:', data.user);
+
+      // Clear inputs and errors
+      email.value = '';
+      password.value = '';
+      errorMessage.value = '';
+    }
+  } catch (err) {
+    console.error('Unexpected error:', err);
+  }
+};
+
 </script>
 
 <style>
