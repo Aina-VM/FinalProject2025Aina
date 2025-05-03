@@ -43,11 +43,12 @@ const _handleSignUp = async () => {
   }
 };
 
+
 </script>
 
 <template>
   <div>
-    <h1>Sign Up</h1>
+    <h1>New here? Sign Up!</h1>
     <form @submit.prevent="_handleSignUp">
       <label>
         Email:
@@ -65,22 +66,43 @@ const _handleSignUp = async () => {
 </template>
 
 <style scoped>
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 60vh;
+        background-color: #3b0505;
+        font-family: Arial, sans-serif;
+        color: white;
+    }
     form {
         display: flex;
         flex-direction: column;
-        max-width: 300px;
-        margin: auto;
+        max-width: 250px;
+        margin: 0 auto;
+        width: 100%;
     }
-    
+
     label {
         margin-bottom: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 7px;
     }
-    
+    input {
+        padding: 2px 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
     button {
-        margin-top: 10px;
+        margin-top: 3px;
     }
     
-    p {
-        color: red;
+    h1 {
+        font-size: 1.7rem;
     }
 </style>
