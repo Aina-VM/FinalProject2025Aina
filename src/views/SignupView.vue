@@ -13,6 +13,7 @@ const successMessage = ref('');
 const userStore = useUserStore(); // fetch the user store
 const { user } = storeToRefs(userStore); // Destructure user from the store
 
+
 const _handleSignUp = async () => {
     if (!email.value || !password.value) {
       errorMessage.value = 'Please enter both email and password.';
@@ -23,6 +24,7 @@ const _handleSignUp = async () => {
       email: email.value,
       password: password.value,
     });
+    console.log(data, error);
 
     if (error) {
       errorMessage.value = error.message; // Set errorMessage for UI
@@ -47,9 +49,9 @@ const _handleSignUp = async () => {
 </script>
 
 <template>
-  <div>
+  <div class="signup-container">
     <h1>New here? Sign Up!</h1>
-    <form @submit.prevent="_handleSignUp">
+    <form @submit.prevent="_handleSignUp" id="signup-form">
       <label>
         Email:
         <input type="email" v-model="email" required />
@@ -66,15 +68,23 @@ const _handleSignUp = async () => {
 </template>
 
 <style scoped>
-    div {
+    .signup-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 60vh;
+        height: 150px;
         background-color: #3b0505;
         font-family: Arial, sans-serif;
         color: white;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 2em;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+
     }
     form {
         display: flex;
