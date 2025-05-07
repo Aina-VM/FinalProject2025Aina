@@ -3,7 +3,9 @@ import HelloWorld from '../components/HelloWorld.vue';
 import Tasks from '../views/TasksView.vue';
 import Login from '../views/LoginView.vue';
 import Signup from '../views/SignupView.vue';
-import { useUserStore } from '../store/user.js';
+import Logout from '../views/LogoutView.vue';
+import { useUserStore } from '../store/user.js'; // ✅ Import store
+
 
 
 const routes = [
@@ -16,6 +18,11 @@ const routes = [
     path: '/hello',
     name: 'HelloWorld',
     component: () => import('../components/HelloWorld.vue'),
+  },
+  {
+    path: '/navbar',
+    name: 'Navbar',
+    component: () => import('../components/Navbar.vue'),
   },
   {
     path: '/tasks',
@@ -32,25 +39,31 @@ const routes = [
     name: 'Signup',
     component: Signup,
   },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout,
+  },
 ];
 
 
 
+// ✅ Create router instance
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 
-// Add guards AFTER router is initialized
+
+// ✅ Move `useUserStore()` inside navigation guard function
 router.beforeEach((to, from, next) => {
-  const userStore = useUserStore();
+  const userStore = useUserStore(); // ✅ Call store inside function
+
   if (to.path === '/tasks' && !userStore.isLoggedIn) {
-    next('/login');
+    next('/login'); // Redirect if user is not logged in
   } else {
-    next();
+    next(); // Continue navigation
   }
 });
-
-
 
 export default router;

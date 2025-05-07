@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <h1>Login</h1>
-    <form @submit.prevent="_handleSubmit" id="login-form">
+    <form @submit.prevent="_handleLogIn" id="login-form">
       <label>
         Email
         <input type="email" v-model="email" required />
@@ -12,7 +12,8 @@
       </label>
       <button type="submit">Login</button>
     </form>
-    <p v-if="error" class="error">{{ error }}</p>
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <p v-if="isLoggedIn" class="welcome">Welcome, {{ name }}!</p>
   </div>
 </template>
 
@@ -21,6 +22,16 @@ import { ref } from 'vue';
 import { supabase } from '../api/supabase/index.js' 
 import { useUserStore } from '../store/user.js'; // Import the user store
 import { storeToRefs } from 'pinia'; // Import storeToRefs to destructure the store
+
+const email = ref('');
+const password = ref('');
+const Name = ref('');
+const errorMessage = ref('');
+const successMessage = ref('');
+
+
+const userStore = useUserStore(); // fetch the user store
+const { user, name, isLoggedIn } = storeToRefs(userStore); // Destructure user from the store
 
 
 const _handleLogIn = async () => {
@@ -40,13 +51,14 @@ const _handleLogIn = async () => {
     } else if (data && data.user) {
       // Handle successful sign-up
       userStore.setUser(data.user); // Save user data in Pinia store
-      successMessage.value = 'Sign-up successful! Please check your email to confirm.';
-      console.log('User signed up:', data.user);
+      successMessage.value = 'Log-in successful!';
+      console.log('User logged in:', data.user);
 
       // Clear inputs and errors
       email.value = '';
       password.value = '';
       errorMessage.value = '';
+      window.location.href = '/tasks';
     }
   } catch (err) {
     console.error('Unexpected error:', err);

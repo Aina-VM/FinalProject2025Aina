@@ -1,5 +1,8 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
+import Navber from './components/Navbar.vue'
+import { RouterView } from 'vue-router';
+
 
 
 
@@ -8,18 +11,9 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <navbar class="navbar">
-    <a href="#" target="_blank">
-      <img src="./assets/list-to-do.png" class="logo vue" alt="To-do logo" />
-    </a>
-    <nav class="links">
-      <RouterLink to="/tasks">Tasks</RouterLink>
-      <RouterLink to="/login">Login</RouterLink>
-      <RouterLink to="/signup">Sign Up</RouterLink>
-    </nav>
-  </navbar>
+    <Navber />
   </header>
-  <main>
+  <main id="appi">
     <div class="background-container">
     <img src="./assets/lista-de-verificacion.png" class="logoback" alt="To-do logo" />
     <div class="text-overlay">
@@ -37,47 +31,26 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0em 1em;
-  background-color: #768576;
-  color: white;
-  height: 5em;
-  font-family: Arial, sans-serif;
-}
-.logo {
-  height: 4em;
-  padding: 0.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #630c0caa);
-}
-.links {
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  justify-content: space-around;
-  margin: 20px 0;
-}
-
-.links a {
-  color: #143626;
-  text-decoration: none;
-  font-size: 0.8rem;
-  font-weight: 700;
+#appi {
+  height: 100vh;
+  background-color: #310303d0;
 }
 
 .background-container {
   position: relative;
   width: 100%;
-  height: 50vh;
+  height: 70vh;
   overflow: hidden;
-  background-color: #310303d0;
+}
+.logoback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(1px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 .text-overlay {
   position: absolute;

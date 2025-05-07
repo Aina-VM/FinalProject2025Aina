@@ -6,6 +6,7 @@ import { storeToRefs } from 'pinia'; // Import storeToRefs to destructure the st
 
 const email = ref('');
 const password = ref('');
+const Name = ref('');
 const errorMessage = ref('');
 const successMessage = ref('');
 
@@ -23,6 +24,11 @@ const _handleSignUp = async () => {
     const { data, error } = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
+      options: {
+			data: {
+				Name: Name.value
+			}
+		  }
     });
     console.log(data, error);
 
@@ -39,11 +45,14 @@ const _handleSignUp = async () => {
       email.value = '';
       password.value = '';
       errorMessage.value = '';
+      Name.value = '';
     }
   } catch (err) {
     console.error('Unexpected error:', err);
   }
 };
+
+
 
 
 </script>
@@ -54,11 +63,15 @@ const _handleSignUp = async () => {
     <form @submit.prevent="_handleSignUp" id="signup-form">
       <label>
         Email:
-        <input type="email" v-model="email" required />
+        <input type="email" id="email" v-model="email" required />
       </label>
       <label>
         Password:
-        <input type="password" v-model="password" required />
+        <input type="password" id="password" v-model="password" required />
+      </label>
+      <label>
+        Name:
+        <input type="text" id="Name" v-model="Name" required />
       </label>
       <button type="submit">Sign Up</button>
     </form>

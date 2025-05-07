@@ -21,21 +21,21 @@ export const useTasksStore = defineStore('tasks', () => {
     }
 
 
-    async function fetchProjects() {
+    async function fetchTasks() {
         try {
-            const data = await getAllProjects()
+            const data = await getAllTasks()
 
-            projects.push(...data)
+            tasks.push(...data)
         } catch (err) {
             console.error(err)
         }
     }
 return {
     // state
-    projects,
+    tasks,
     // getters
     // actions
-    addProject,
-    fetchProjects,
+    addTask,
+    fetchTasks,
     }
 })
