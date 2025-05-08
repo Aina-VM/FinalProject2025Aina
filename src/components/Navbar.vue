@@ -12,6 +12,10 @@
   </div>
 </template>
 
+<script setup>
+import { RouterLink } from 'vue-router';
+</script>
+
 <style scoped>
 .divr {
   display: flex;

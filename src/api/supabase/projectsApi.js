@@ -1,12 +1,12 @@
 import { supabase } from './index.js'
 
-const TO_DO = 'tasks'
+const Table = 'tasks'
 
 //read all projects
 export const getAllTasks = async () => {
     try {
         const { data, error } = await supabase
-            .from(TO_DO)
+            .from(Table)
             .select() // fetch o traeme los datos
         if (error) {
             throw new Error(error.message) // si se ejecuta el error, lo que hay despres no se ejecuta
@@ -29,7 +29,7 @@ export const createTask = async (title, description) => {
         const userId = (await supabase.auth.getUser()).data.user.id // obtenemos el id del usuario logueado
         // hacemos peticion
         const { data, error } = await supabase
-            .from(TO_DO)
+            .from(Table)
             .insert({ title, description, user_id: userId}) // insertamos los datos
         
         //comprobamos si hay error

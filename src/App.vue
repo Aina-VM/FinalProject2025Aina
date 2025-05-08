@@ -2,11 +2,6 @@
 import HelloWorld from './components/HelloWorld.vue'
 import Navber from './components/Navbar.vue'
 import { RouterView } from 'vue-router';
-
-
-
-
-
 </script>
 
 <template>
@@ -39,7 +34,7 @@ import { RouterView } from 'vue-router';
 .background-container {
   position: relative;
   width: 100%;
-  height: 70vh;
+  height: 100vh;
   overflow: hidden;
 }
 .logoback {

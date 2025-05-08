@@ -27,7 +27,7 @@ const routes = [
   {
     path: '/tasks',
     name: 'Tasks',
-    component: Tasks,
+    component: () => import('../views/TasksView.vue'),
   },
   {
     path: '/login',
