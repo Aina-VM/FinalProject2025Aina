@@ -22,9 +22,9 @@ export const useTasksStore = defineStore('tasks', () => {
     // getters
 
     // actions
-    async function addTask(title, description, category, createdAt) {
+    async function addTask(id, title, description, category, createdAt) {
         try {
-            const data = await createTask(title, description, category, createdAt)
+            const data = await createTask(id, title, description, category, createdAt)
 
             tasks.push(data) // lo meto en mi proyecto
         } catch (err) {
@@ -42,6 +42,19 @@ export const useTasksStore = defineStore('tasks', () => {
             console.error(err)
         }
     }
+
+    // function to remove task from tasks array
+    async function removeTask(id) {
+        try {
+            const index = tasks.findIndex(task => task.id === id)
+            if (index !== -1) {
+                tasks.splice(index, 1)
+            }
+        } catch (err) {
+            console.error(err)
+        }
+        
+    }
 return {
     // state
     tasks,
@@ -49,5 +62,6 @@ return {
     // actions
     addTask,
     fetchTasks,
+    removeTask,
     }
 })

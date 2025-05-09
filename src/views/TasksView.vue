@@ -1,15 +1,17 @@
 <script setup>
-import { onMounted, ref, watch, computed } from 'vue'
+import { onMounted, onUnmounted, ref, watch, computed, reactive } from 'vue'
 import { useTasksStore } from '../store/task.js'
 import { storeToRefs } from 'pinia'
 
-const todos = ref([])
+const todos = reactive([])
 const title = ref('')
 const description = ref('')
 const category = ref('')
 const createdAt = ref('')
+const id = ref('')
 
-const todos_asc = computed(() => todos.sort((a, b) => a.createdAt - b.createdAt))
+//const todos_asc = computed(() => todos.sort((a, b) => a.createdAt - b.createdAt))
+const todos_asc = computed(() => [...todos].sort((a, b) => a.createdAt - b.createdAt));
 
 //const todos_asc = computed(() => todos.value.sort((a, b) => {
    // return a.createdAt - b.createdAt
@@ -23,8 +25,9 @@ const { tasks } = storeToRefs(tasksStore)
 const _handleSubmit = async () => {
     try {
         const now = new Date().toISOString()
-        await tasksStore.addTask(title.value, description.value, category.value, now)
+        await tasksStore.addTask(id.value, title.value, description.value, category.value, now)
 
+        id.value = ''
         title.value = ''
         description.value = ''
         category.value = ''
@@ -39,6 +42,20 @@ const _handleSubmit = async () => {
 onMounted(() => {
     tasksStore.fetchTasks()
 })
+
+onUnmounted(() => {
+  todos.length = 0; // Clears the array safely
+});
+
+const _handleDelete = async (task) => {
+    try {
+        await tasksStore.deleteTask(task.id)
+        console.log('Task deleted successfully!')
+    } catch (err) {
+        console.error(err)
+    }
+}
+// user id has to be passed in the task object
 
 
 
@@ -98,7 +115,7 @@ onMounted(() => {
                 </div>
 
                 <div class="actions">
-                    <button>min23:30</button>
+                    <button class="deleteButton" @click="_handleDelete">Delete</button>
                 </div>
 
             </div>
