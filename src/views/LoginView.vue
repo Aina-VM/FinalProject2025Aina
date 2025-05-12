@@ -86,7 +86,7 @@ const _handleLogIn = async () => {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 
     }
-form {
+#login-form {
     display: flex;
     flex-direction: column;
     max-width: 250px;
@@ -94,7 +94,7 @@ form {
     width: 100%;
     }
 
-label {
+#login-form label {
     margin-bottom: 10px;
     width: 100%;
     display: flex;
@@ -102,17 +102,17 @@ label {
     justify-content: space-between;
     gap: 7px;
     }
-input {
+#login-form input {
     padding: 2px 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
     }
-button {
+#login-form button {
     margin-top: 3px;
     }
     
-h1 {
+#login-form h1 {
     font-size: 1.7rem;
     }
 

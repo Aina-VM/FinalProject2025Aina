@@ -99,7 +99,7 @@ const _handleSignUp = async () => {
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 
     }
-    form {
+    #signup-form {
         display: flex;
         flex-direction: column;
         max-width: 250px;
@@ -107,7 +107,7 @@ const _handleSignUp = async () => {
         width: 100%;
     }
 
-    label {
+    #signup-form label {
         margin-bottom: 10px;
         width: 100%;
         display: flex;
@@ -115,13 +115,13 @@ const _handleSignUp = async () => {
         justify-content: space-between;
         gap: 7px;
     }
-    input {
+    #signup-form input {
         padding: 2px 5px;
         border: 1px solid #ccc;
         border-radius: 4px;
         width: 100%;
     }
-    button {
+    #signup-form button {
         margin-top: 3px;
     }
     

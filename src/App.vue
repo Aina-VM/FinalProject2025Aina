@@ -27,14 +27,14 @@ import { RouterView } from 'vue-router';
 
 <style scoped>
 #appi {
-  height: 100vh;
+  height: 100%;
   background-color: #310303d0;
 }
 
 .background-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   overflow: hidden;
 }
 .logoback {

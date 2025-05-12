@@ -17,6 +17,7 @@ export const getAllTasks = async () => {
             createdAt: task.created_at,
             title: task.title,
             description: task.description,
+            category: task.category,
         }))
     } catch (error) {
         console.error(error)
@@ -24,14 +25,25 @@ export const getAllTasks = async () => {
     }
 }
 
-export const createTask = async (title, description) => {
+export const createTask = async (title, description, category) => {
     try {
-        const userId = (await supabase.auth.getUser()).data.user.id // obtenemos el id del usuario logueado
+        //const userId = (await supabase.auth.getUser()).data.user.id // obtenemos el id del usuario logueado
         // hacemos peticion
+
+        // obtenemos el id del usuario logueado
+        const { data: userData, error: userError } = await supabase.auth.getUser()
+
+        if (userError || !userData?.user) {
+            throw new Error('User is not authenticated')
+        }
+
+        const userId = userData.user.id
+
+
         const { data, error } = await supabase
             .from(Table)
-            .insert({ title, description, user_id: userId}) // insertamos los datos
-        
+            .insert({ title, description, category, user_id: userId}) // insertamos los datos
+            .select() // seleccionamos los datos
         //comprobamos si hay error
         if (error) {
             throw new Error(error.message)
@@ -44,5 +56,27 @@ export const createTask = async (title, description) => {
         console.error(error)
         return [];
     }
+}
+
+export const updateTask = async (id, updates) => {
+    const { data, error } = await supabase
+        .from('tasks')
+        .update(updates)
+        .eq('id', id)
+
+    if (error) {
+        throw new Error(error.message)
+    }
+
+    return data
+}
+
+export const deleteTask = async (id) => {
+  const { error } = await supabase
+    .from('tasks')
+    .delete()
+    .eq('id', id)
+
+  if (error) throw new Error(error.message)
 }
     
