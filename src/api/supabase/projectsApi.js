@@ -18,6 +18,7 @@ export const getAllTasks = async () => {
             title: task.title,
             description: task.description,
             category: task.category,
+            done: task.done,
         }))
     } catch (error) {
         console.error(error)
@@ -42,7 +43,7 @@ export const createTask = async (title, description, category) => {
 
         const { data, error } = await supabase
             .from(Table)
-            .insert({ title, description, category, user_id: userId}) // insertamos los datos
+            .insert({ title, description, category, user_id: userId, done: false}) // insertamos los datos
             .select() // seleccionamos los datos
         //comprobamos si hay error
         if (error) {
@@ -59,16 +60,28 @@ export const createTask = async (title, description, category) => {
 }
 
 export const updateTask = async (id, updates) => {
+        // Fetch the authenticated user's ID
+    const { data: userData, error: userError } = await supabase.auth.getUser()
+
+    if (userError || !userData?.user) {
+        throw new Error('User is not authenticated')
+    }
+
+    const userId = userData.user.id
+
+    // Perform the update only if the user_id matches the authenticated user
     const { data, error } = await supabase
         .from('tasks')
         .update(updates)
         .eq('id', id)
+        .eq('user_id', userId)
+        .select() //afegit ara
 
     if (error) {
         throw new Error(error.message)
     }
 
-    return data
+    return data[0] //estava sense el zero
 }
 
 export const deleteTask = async (id) => {

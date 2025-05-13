@@ -1,42 +1,66 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
 import Navber from './components/Navbar.vue'
 import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <header>
-    <Navber />
-  </header>
-  <main id="appi">
-    <div class="background-container">
-    <img src="./assets/lista-de-verificacion.png" class="logoback" alt="To-do logo" />
-    <div class="text-overlay">
-      <HelloWorld msg="To-Do App" />
-    </div>
-  </div>
-  </main>
-  
+<div class="page-wrapper">
+    <header>
+      <Navber />
+    </header>
 
-
-  
-  <router-view></router-view>
-
-
+    <main id="appi">
+      <div class="background-container">
+        <img src="./assets/lista-de-verificacion.png" class="logoback" alt="To-do logo" />
+        <router-view />
+      </div>
+      
+    </main>
+</div>
 </template>
 
-<style scoped>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.page-wrapper, html, body {
+  margin: 0 0;
+  padding: 0 0;
+  height: 100vh;
+  overflow: hidden; /* Or set overflow: auto if scroll needed */
+  width: 100vw;
+}
+
 #appi {
-  height: 100%;
-  background-color: #310303d0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .background-container {
+  flex: 1;
   position: relative;
-  width: 100%;
-  height: 90vh;
-  overflow: hidden;
+  background-color: #310303c7;
+  overflow: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 1rem;
 }
+
+router-view {
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+  width: 90%;
+  max-width: 600px;
+}
+
 .logoback {
   width: 100%;
   height: 100%;
@@ -46,14 +70,5 @@ import { RouterView } from 'vue-router';
   top: 0;
   left: 0;
   z-index: -1;
-}
-.text-overlay {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
-  background-color: transparent;
 }
 </style>

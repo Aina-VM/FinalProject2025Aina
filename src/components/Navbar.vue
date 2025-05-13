@@ -1,8 +1,8 @@
 <template>
-    <div class="divr">
-    <a href="#" target="_blank">
+    <div class="theTop">
+    <RouterLink to="/" class="logo-link">
       <img src="../assets/list-to-do.png" class="logo vue" alt="To-do logo" />
-    </a>
+    </RouterLink>
     <nav class="links">
       <RouterLink to="/tasks">Tasks</RouterLink>
       <RouterLink to="/login">Log In</RouterLink>
@@ -17,7 +17,7 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <style scoped>
-.divr {
+.theTop {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

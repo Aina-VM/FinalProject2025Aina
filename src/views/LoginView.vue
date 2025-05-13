@@ -13,12 +13,12 @@
       <button type="submit">Login</button>
     </form>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-    <p v-if="isLoggedIn" class="welcome">Welcome, {{ name }}!</p>
+    <p v-if="isLoggedIn" class="welcome">Welcome, {{ displayName }}!</p>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { supabase } from '../api/supabase/index.js' 
 import { useUserStore } from '../store/user.js'; // Import the user store
 import { storeToRefs } from 'pinia'; // Import storeToRefs to destructure the store
@@ -33,6 +33,7 @@ const successMessage = ref('');
 const userStore = useUserStore(); // fetch the user store
 const { user, name, isLoggedIn } = storeToRefs(userStore); // Destructure user from the store
 
+const displayName = computed(() => user.value?.user_metadata?.first_name || 'Guest');
 
 const _handleLogIn = async () => {
     if (!email.value || !password.value) {
@@ -52,7 +53,7 @@ const _handleLogIn = async () => {
       // Handle successful sign-up
       userStore.setUser(data.user); // Save user data in Pinia store
       successMessage.value = 'Log-in successful!';
-      console.log('User logged in:', data.user);
+      console.log('User logged in:', user.first_name);
 
       // Clear inputs and errors
       email.value = '';

@@ -11,12 +11,7 @@ import { useUserStore } from '../store/user.js'; // ✅ Import store
 const routes = [
   {
     path: '/', // Root path
-    name: 'Home',
-    component: HelloWorld, // Replace with your desired component for the root path
-  },
-  {
-    path: '/hello',
-    name: 'HelloWorld',
+    name: 'HelloWorld', // Name of the route
     component: () => import('../components/HelloWorld.vue'),
   },
   {

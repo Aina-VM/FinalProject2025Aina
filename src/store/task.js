@@ -6,18 +6,6 @@ import { createTask, getAllTasks, updateTask, deleteTask } from '../api/supabase
 export const useTasksStore = defineStore('tasks', () => {
     // state
     const tasks = reactive([]) // ref you need to put task.value, with reactive justs tasks abans era reactive([]) com ho te en el video
-    // 
-    // persist to localStorage whenever tasks change
-    // watch(tasks, (newVal) => {
-    //     localStorage.setItem('tasks', JSON.stringify(newVal))
-    // }, { deep: true })
-
-    // // load from localStorage on init, keeps data after refresh
-    // if (localStorage.getItem('tasks')) {
-    //     const storedTasks = JSON.parse(localStorage.getItem('tasks'))
-    //     storedTasks.forEach(task => tasks.push(task)) 
-        
-    // }
 
     // getters
 
@@ -66,11 +54,23 @@ export const useTasksStore = defineStore('tasks', () => {
 
 async function updateTaskInTasks(updatedTask) {
     try {
-        await updateTask(updatedTask.id, updatedTask)
-        const index = tasks.findIndex(task => task.id === updatedTask.id)
+        // Make the API call to update the task in Supabase
+        const updatedData = await updateTask(updatedTask.id, updatedTask);
+        console.log("Updated Task:", updatedData);
+
+        // Find the index of the task to update in the reactive tasks array
+        const index = tasks.findIndex(task => task.id === updatedTask.id);
+
         if (index !== -1) {
-            Object.assign(tasks[index], updatedTask)
+            // Update the task at the index with the updated data
+            // If the updatedData returned from API matches the structure of task, update it fully
+            tasks[index] = updatedData;  // This will replace the old task with the updated one
         }
+        // await updateTask(updatedTask.id, updatedTask)
+        // const index = tasks.findIndex(task => task.id === updatedTask.id)
+        // if (index !== -1) {
+        //     Object.assign(tasks[index], updatedTask)
+        // }
     } catch (err) {
         console.error('Failed to update task:', err)
     }
