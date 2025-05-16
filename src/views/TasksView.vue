@@ -47,8 +47,6 @@ const _handleSubmit = async () => {
         const now = new Date().toISOString()
         await tasksStore.addTask(title.value, description.value, category.value, now)
 
-
-
         title.value = ''
         description.value = ''
         category.value = ''
@@ -214,7 +212,7 @@ const stopEditing = async (task) => {
     html, body {
         margin: 0 0;
         padding: 0;
-        overflow: hidden; /* Prevents scrolling */
+        overflow: visible; /* Prevents scrolling */
         height: 100%;
         width: 100%;
         box-sizing: border-box
@@ -228,8 +226,9 @@ const stopEditing = async (task) => {
         display: flex;
         flex-direction: column;
         width: 80%;
-        margin-top: 6%;
-        margin-bottom: 6%;
+        margin: 0 auto;
+        margin-top: 1em;
+        margin-bottom: 6em;
         height: auto;
         min-height: 80%;
         align-items: center;
@@ -237,11 +236,7 @@ const stopEditing = async (task) => {
         background-color: #3b0505;
         font-family: Arial, sans-serif;
         color: white;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 2em;
+        padding: 0em;
         border-radius: 10px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
@@ -287,6 +282,7 @@ const stopEditing = async (task) => {
       font-size: 1.4rem;
       margin: 1rem 0 0.5rem;
       text-align: left;
+      overflow: visible;
     }
 
     .create-task h4 {
@@ -396,6 +392,10 @@ const stopEditing = async (task) => {
       border-top: 1px solid rgba(255, 255, 255, 0.15);
       margin-top: 1.5rem;
       padding-top: 1rem;
+    }
+
+    .list{
+      overflow-y: visible;
     }
     /* Task borders based on category */
     .todo-item.work {
