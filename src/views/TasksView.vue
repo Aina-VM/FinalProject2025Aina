@@ -196,7 +196,7 @@ const stopEditing = async (task) => {
           <button v-else @click="stopEditing(task)" class="edit-save">Save</button>
         </template>
   
-        <!-- Delete button always shown -->
+        <!-- Delete button displayed always -->
         <button class="deleteButton" @click="_handleDelete(task)">Delete</button>
       </div>
      </div>
