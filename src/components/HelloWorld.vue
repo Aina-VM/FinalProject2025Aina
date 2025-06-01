@@ -1,5 +1,6 @@
 <script setup>
 import { watch, ref, computed, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { supabase } from '../api/supabase/index.js' 
 import { useUserStore } from '../store/user.js'; // Import the user store
 import { storeToRefs } from 'pinia'; // Import storeToRefs to destructure the store
@@ -7,10 +8,32 @@ import { storeToRefs } from 'pinia'; // Import storeToRefs to destructure the st
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 
-// Debug: Check user data
+const route = useRoute();
+const router = useRouter();
+const mensaje = ref(route.query.mensaje || null);
+
+// Mostrar mensaje inicial si viene en la URL
 onMounted(() => {
   console.log('User data:', user.value);
+  if (mensaje.value) {
+    iniciarTemporizadorMensaje();
+  }
 });
+
+// Reaccionar si cambia el query string (ej: mensaje=ya-logueado)
+watch(() => route.query.message, (nuevoMensaje) => {
+  if (nuevoMensaje) {
+    mensaje.value = nuevoMensaje;
+    iniciarTemporizadorMensaje();
+  }
+}, { immediate: true });
+
+function iniciarTemporizadorMensaje() {
+  setTimeout(() => {
+    mensaje.value = null;
+    router.replace({ path: route.path, query: {} }); // limpia el query string
+  }, 7000);
+}
 // Update computed property to reflect the correct name path
 const displayName = computed(() => user.value?.user_metadata?.first_name || 'Guest');
 
@@ -19,7 +42,10 @@ const displayName = computed(() => user.value?.user_metadata?.first_name || 'Gue
 
 <template>
   <div class="card">
-    <h1>"Welcome to Your Task Hub"</h1>
+    <h1>Welcome to Your Task Hub!</h1>
+    <p v-if="mensaje === 'ya-logueado'" style="color: lightblue; font-weight: bold;">Ya estás logueado.</p>
+    <p v-else-if="mensaje === 'ya-registrado'" style="color: lightblue; font-weight: bold;">Ya estás registrado. Si quieres crear otra cuenta, por favor cierra sesión primero.</p>
+    <p v-if="mensaje === 'logout-ok'" style="color: lightblue; font-weight: bold;">Has cerrado sesión correctamente.</p>
     <h4 v-if="user">Dear {{ displayName }}, let's get things done! </h4>
     <h4 v-else>Please create an account or log in.</h4>
     <p>

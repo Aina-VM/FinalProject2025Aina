@@ -7,6 +7,16 @@ export const useTasksStore = defineStore('tasks', () => {
     // state
     const tasks = reactive([]) // ref you need to put task.value, with reactive justs tasks abans era reactive([]) com ho te en el video
 
+    function mapTask(task) {
+        return {
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            category: task.category,
+            done: task.done,
+            createdAt: task.created_at
+        }
+    }
     // getters
 
     // actions
@@ -15,7 +25,7 @@ export const useTasksStore = defineStore('tasks', () => {
         const data = await createTask(title, description, category) // pass values separately
 
         if (data && data.length > 0) {
-            tasks.push(data[0]) // Supabase returns an array, push the first item
+            tasks.push(mapTask(data[0])) // Supabase returns an array, push the first item
         }
     } catch (err) {
         console.error(err)
@@ -27,7 +37,7 @@ export const useTasksStore = defineStore('tasks', () => {
         try {
             const data = await getAllTasks()
 
-            tasks.splice(0, tasks.length, ...data)
+            tasks.splice(0, tasks.length, ...data.map(mapTask))
             //data.forEach(task => tasks.push(task))
             //tasks.push(...data)
         } catch (err) {
@@ -64,7 +74,7 @@ async function updateTaskInTasks(updatedTask) {
         if (index !== -1) {
             // Update the task at the index with the updated data
             // If the updatedData returned from API matches the structure of task, update it fully
-            tasks[index] = updatedData;  // This will replace the old task with the updated one
+            tasks[index] = mapTask(updatedData);  // This will replace the old task with the updated one
         }
         // await updateTask(updatedTask.id, updatedTask)
         // const index = tasks.findIndex(task => task.id === updatedTask.id)

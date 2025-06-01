@@ -55,9 +55,15 @@ router.beforeEach((to, from, next) => {
   const userStore = useUserStore(); // ✅ Call store inside function
 
   if (to.path === '/tasks' && !userStore.isLoggedIn) {
-    next('/login'); // Redirect if user is not logged in
+    next('/login'); // 🔒 Usuario no logueado intenta ir a /tasks
+  } else if (to.path === '/login' && userStore.isLoggedIn) {
+    // ✅ Usuario ya logueado intenta ir a /login
+    next({ path: '/', query: { message: 'ya-logueado' } });
+    // Usuario ya logueado intenta ir a /signup
+  } else if (to.path === '/signup' && userStore.isLoggedIn) {
+    next({ path: '/', query: { message: 'ya-registrado' } });
   } else {
-    next(); // Continue navigation
+    next(); // Continuar navegación normalmente
   }
 });
 

@@ -15,8 +15,16 @@ const { tasks } = storeToRefs(tasksStore)
 
 //const todos_asc = computed(() => todos.sort((a, b) => a.createdAt - b.createdAt))
 const tasksSorted = computed(() =>
-  [...tasks.value].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-)
+  [...tasks.value]
+    .sort((a, b) => {
+      // Primero ordenar por estado done: las NO hechas (done=false) primero
+      if (a.done !== b.done) {
+        return a.done ? 1 : -1; // done=true va al final
+      }
+      // Si ambos tienen el mismo estado done, ordenar por fecha (más reciente primero)
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    })
+);
 
 
 //const todos_asc = computed(() => todos.value.sort((a, b) => {

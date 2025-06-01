@@ -1,10 +1,22 @@
 <script setup>
+import { onMounted, ref } from 'vue';
+import { useUserStore } from './store/user.js';
 import Navber from './components/Navbar.vue'
 import { RouterView } from 'vue-router';
+
+
+const userStore = useUserStore();
+const loading = ref(true);
+
+onMounted(async () => {
+  await userStore.fetchUser(); // ✅ Sincroniza sesión con Supabase
+  loading.value = false;       // ✅ Ahora sí podemos mostrar la app
+});
+
 </script>
 
 <template>
-<div class="page-wrapper">
+<div class="page-wrapper" v-if="!loading">
     <header>
       <Navber />
     </header>
@@ -16,6 +28,10 @@ import { RouterView } from 'vue-router';
       </div>
       
     </main>
+</div>
+
+<div v-else class="loading-screen">
+    <p>Cargando sesión...</p>
 </div>
 </template>
 
@@ -71,4 +87,16 @@ router-view {
   left: 0;
   z-index: -1;
 }
+
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #310303c7;
+  color: white;
+  font-size: 1.2rem;
+  font-family: Arial, sans-serif;
+}
+
 </style>
