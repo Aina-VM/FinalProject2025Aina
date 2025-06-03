@@ -86,7 +86,7 @@ const _handleSignUp = async () => {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 150px;
+        height: 250px;
         background-color: #3b0505;
         font-family: Arial, sans-serif;
         color: white;

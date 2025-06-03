@@ -13,7 +13,7 @@
       <button type="submit">Login</button>
     </form>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-    <p v-if="isLoggedIn" class="welcome">Welcome, {{ displayName }}!</p>
+    <p v-if="isLoggedIn" class="welcome">Welcome, {{ displayName }}! <br/> Click <RouterLink to="/tasks">here</RouterLink> to go to your tasks.</p>
   </div>
 </template>
 
@@ -116,6 +116,17 @@ const _handleLogIn = async () => {
 #login-form h1 {
     font-size: 1.7rem;
     }
+.login-container .welcome {
+    margin-top: 1.5em;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    text-align: center;
+    max-width: 350px;
+  }
+.login-container {
+    min-width: 350px;
+    min-height: 250px;
+  }
 
 
 </style>

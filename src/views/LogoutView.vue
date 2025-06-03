@@ -1,29 +1,43 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { supabase } from '../api/supabase/index.js' 
 
+const alreadyLoggedOut = ref(false);
+
+onMounted(async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+  alreadyLoggedOut.value = !session;
+  if (session) {
+    await logout();
+  }
+});
 
 async function logout() {
-	const { error } = await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut();
 
-	if (error) {
-		console.log(error);
-	}
-	else {
-		console.log("Sign out success")
-	// Optionally, redirect to the login page after logout
+    if (error) {
+        console.log(error);
+    }
+    else {
+        console.log("Sign out success")
+    // Optionally, redirect to the login page after logout
     window.location.href = '/login'; // Or use Vue Router for programmatic navigation
   }
 }
 </script>
 
 <template>
-	<div class="logout-container">
-	  <h1>Logging out...</h1>
-	  <p>You will be redirected shortly.</p>
-	  <button @click="logout">Click to log in again</button>
-	</div>
-  </template>
+    <div class="logout-container">
+        <template v-if="!alreadyLoggedOut">
+            <h1>Logging out...</h1>
+            <button @click="logout()">Click to log in again</button>
+        </template>
+        <template v-else>
+            <h1>You are already logged out!</h1>
+            <p>Please <a href="/login">log in</a> to continue.</p>
+        </template>
+    </div>
+</template>
   
   <style scoped>
   .logout-container {

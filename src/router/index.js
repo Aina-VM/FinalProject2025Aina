@@ -62,6 +62,7 @@ router.beforeEach((to, from, next) => {
     // Usuario ya logueado intenta ir a /signup
   } else if (to.path === '/signup' && userStore.isLoggedIn) {
     next({ path: '/', query: { message: 'ya-registrado' } });
+  
   } else {
     next(); // Continuar navegación normalmente
   }
