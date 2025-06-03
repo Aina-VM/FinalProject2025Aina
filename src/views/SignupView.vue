@@ -82,50 +82,82 @@ const _handleSignUp = async () => {
 
 <style scoped>
     .signup-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 250px;
-        background-color: #3b0505;
-        font-family: Arial, sans-serif;
-        color: white;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 2em;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #3b0505;
+  font-family: Arial, sans-serif;
+  color: white;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  margin: 5% auto;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
 
-    }
-    #signup-form {
-        display: flex;
-        flex-direction: column;
-        max-width: 250px;
-        margin: 0 auto;
-        width: 100%;
-    }
+#signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.8em;
+}
 
-    #signup-form label {
-        margin-bottom: 10px;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 7px;
-    }
-    #signup-form input {
-        padding: 2px 5px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: 100%;
-    }
-    #signup-form button {
-        margin-top: 3px;
-    }
-    
-    h1 {
-        font-size: 1.7rem;
-    }
+#signup-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  gap: 0.3em;
+}
+
+#signup-form input {
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+#signup-form button {
+  margin-top: 0.5em;
+  padding: 0.6em;
+  font-size: 1rem;
+  background-color: #8f1a1a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#signup-form button:hover {
+  background-color: #a73232;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+p {
+  margin-top: 1em;
+  text-align: center;
+}
+
+/* Mobile Optimization */
+@media (max-width: 500px) {
+  .signup-container {
+    padding: 1.5em;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  #signup-form input,
+  #signup-form button {
+    font-size: 0.95rem;
+  }
+}
 </style>

@@ -70,63 +70,98 @@ const _handleLogIn = async () => {
 
 <style>
 .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 150px;
-    background-color: #3b0505;
-    font-family: Arial, sans-serif;
-    color: white;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2em;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #3b0505;
+  font-family: Arial, sans-serif;
+  color: white;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  margin: 5% auto;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
 
-    }
 #login-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 250px;
-    margin: 0 auto;
-    width: 100%;
-    }
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.8em;
+}
 
 #login-form label {
-    margin-bottom: 10px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 7px;
-    }
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  gap: 0.3em;
+}
+
 #login-form input {
-    padding: 2px 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    }
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
 #login-form button {
-    margin-top: 3px;
-    }
-    
-#login-form h1 {
-    font-size: 1.7rem;
-    }
-.login-container .welcome {
-    margin-top: 1.5em;
-    font-size: 1.1rem;
-    line-height: 1.5;
-    text-align: center;
-    max-width: 350px;
+  margin-top: 0.5em;
+  padding: 0.6em;
+  font-size: 1rem;
+  background-color: #8f1a1a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#login-form button:hover {
+  background-color: #a73232;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.error {
+  color: #ff8080;
+  margin-top: 1em;
+  text-align: center;
+}
+
+.welcome {
+  margin-top: 1.5em;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 350px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 500px) {
+  .login-container {
+    padding: 1.5em;
   }
-.login-container {
-    min-width: 350px;
-    min-height: 250px;
+
+  h1 {
+    font-size: 1.5rem;
   }
+
+  #login-form input,
+  #login-form button {
+    font-size: 0.95rem;
+  }
+
+  .welcome {
+    font-size: 1rem;
+  }
+}
+
 
 
 </style>

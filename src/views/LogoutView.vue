@@ -1,27 +1,28 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { supabase } from '../api/supabase/index.js' 
+import { supabase } from '../api/supabase/index.js';
 
 const alreadyLoggedOut = ref(false);
 
 onMounted(async () => {
   const { data: { session } } = await supabase.auth.getSession();
   alreadyLoggedOut.value = !session;
+
   if (session) {
-    await logout();
+    setTimeout(async () => {
+      await logout();
+    }, 4000); // 4 seconds delay
   }
 });
 
 async function logout() {
-    const { error } = await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
 
-    if (error) {
-        console.log(error);
-    }
-    else {
-        console.log("Sign out success")
-    // Optionally, redirect to the login page after logout
-    window.location.href = '/login'; // Or use Vue Router for programmatic navigation
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Sign out success");
+    window.location.href = '/login';
   }
 }
 </script>
@@ -41,50 +42,61 @@ async function logout() {
   
   <style scoped>
   .logout-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 150px;
-        background-color: #3b0505;
-        font-family: Arial, sans-serif;
-        color: white;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 2em;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #3b0505;
+  font-family: Arial, sans-serif;
+  color: white;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  margin: 10% auto;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+  text-align: center;
+}
 
-    }
-    form {
-        display: flex;
-        flex-direction: column;
-        max-width: 250px;
-        margin: 0 auto;
-        width: 100%;
-    }
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5em;
+}
 
-    label {
-        margin-bottom: 10px;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 7px;
-    }
-    input {
-        padding: 2px 5px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: 100%;
-    }
-    button {
-        margin-top: 3px;
-    }
-    
-    h1 {
-        font-size: 1.7rem;
-    }
+p {
+  font-size: 1rem;
+  margin-bottom: 1em;
+}
+
+button {
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  background-color: #8f1a1a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #a73232;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 500px) {
+  .logout-container {
+    padding: 1.5em;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  p,
+  button {
+    font-size: 0.95rem;
+  }
+}
+
 </style>
