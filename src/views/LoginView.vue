@@ -22,12 +22,15 @@ import { ref, computed } from 'vue';
 import { supabase } from '../api/supabase/index.js' 
 import { useUserStore } from '../store/user.js'; // Import the user store
 import { storeToRefs } from 'pinia'; // Import storeToRefs to destructure the store
+import { useRouter, RouterLink } from 'vue-router'; // Import useRouter and RouterLink for navigation
 
 const email = ref('');
 const password = ref('');
 const Name = ref('');
 const errorMessage = ref('');
 const successMessage = ref('');
+
+const router = useRouter(); // Initialize the router for navigation
 
 
 const userStore = useUserStore(); // fetch the user store
@@ -59,7 +62,7 @@ const _handleLogIn = async () => {
       email.value = '';
       password.value = '';
       errorMessage.value = '';
-      window.location.href = '/tasks';
+      router.push('/tasks');
     }
   } catch (err) {
     console.error('Unexpected error:', err);

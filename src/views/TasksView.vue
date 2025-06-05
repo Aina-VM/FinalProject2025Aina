@@ -284,6 +284,7 @@ const stopEditing = async (task) => {
       width: 100%;
       align-items: flex-start; /* ⬅️ Align left */
       padding-left: 1rem;
+      padding-right: 1rem;
     }
 
     .create-task h3,
