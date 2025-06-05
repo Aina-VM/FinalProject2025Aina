@@ -220,8 +220,8 @@ const stopEditing = async (task) => {
     html, body {
         margin: 0 0;
         padding: 0;
-        overflow: visible; /* Prevents scrolling */
-        height: 100%;
+        overflow: auto; 
+        min-height: 100%;
         width: 100%;
         box-sizing: border-box
     }
@@ -238,6 +238,7 @@ const stopEditing = async (task) => {
         margin-top: 1em;
         margin-bottom: 6em;
         height: auto;
+        overflow-y: auto;
         min-height: 80%;
         align-items: center;
         justify-content: center;
@@ -304,6 +305,7 @@ const stopEditing = async (task) => {
         display: flex;
         flex-direction: column;
         gap: 5px;
+        width: 45vw;
     }
 
     .createTODO {
@@ -526,7 +528,7 @@ const stopEditing = async (task) => {
     @media (max-width: 600px) {
       html, body {
         overflow: auto; /* Allow scrolling on smaller screens */
-        height: auto;
+        max-height: 100vh;
       }
       .tasks-container {
         width: 95%;
@@ -553,6 +555,10 @@ const stopEditing = async (task) => {
         font-size: 1.3rem;
       }
 
+      .textsCreate {
+        width: 300px;
+    }
+
       .greetings h1 {
         font-size: 1.4rem;
       }
@@ -567,12 +573,17 @@ const stopEditing = async (task) => {
 
     }
 
-    @media (max-width: 300px) {
+    @media (max-width: 350px) {
       .tasks-container {
-        width: 95%;
-        padding: 1em;
+        width: 97%;
+        padding: 0.3em;
         overflow: auto;
-        height: 100vh;
+      }
+
+      .create-task, .todo-list {
+        width: 100%;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
       }
 
       .create-task h3,

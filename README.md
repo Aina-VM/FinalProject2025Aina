@@ -19,7 +19,7 @@ A responsive and feature-rich to-do list application built with Vue 3, Pinia, Vu
 
 ## 📸 Screenshots
 
-> *(You can add actual screenshots here)*
+![screenshot]({DAC3736C-2E31-4A09-95AD-CC8FB39F89F7}.png)
 
 ---
 
